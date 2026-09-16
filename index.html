@@ -14,7 +14,7 @@
     let source=await(await fetch('https://raw.githubusercontent.com/kanatama0416-glitch/person5-shiten/d54b52445ac79a119370b47f65504d964c9de34e/index.html',{cache:'no-store'})).text();
     const pattern=/document\.open\(\);document\.write\(html\);document\.close\(\);?/;
     if(!pattern.test(source))throw new Error('patch marker not found');
-    const hook=`html=html.replace('</body>','<script>document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("#secretToggle,#tearToggle");if(b)window.scrollTo(0,0)},true);<\\/script><script src="https://kanatama0416-glitch.github.io/person1-shiten/eye-attract.js?v=c94b0648"><\\/script></body>');`;
+    const hook=`html=html.replace('</body>','<script>document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("#secretToggle,#tearToggle");if(b)window.scrollTo(0,0)},true);<\\/script><script src="https://kanatama0416-glitch.github.io/person1-shiten/eye-attract.js?v=95568811"><\\/script></body>');`;
     source=source.replace(pattern,m=>hook+m);
     document.open();document.write(source);document.close();
   }catch(e){
