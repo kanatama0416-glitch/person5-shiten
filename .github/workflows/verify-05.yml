@@ -15,7 +15,7 @@ jobs:
         run: |
           for i in {1..24}; do
             body="$(curl -fsSL "https://kanatama0416-glitch.github.io/person5-shiten/?v=${GITHUB_SHA}" || true)"
-            if grep -q "20260919-motion-fix" <<<"$body"; then
+            if grep -q "20260919-flat-fix" <<<"$body"; then
               echo "Latest 05 index is published."
               exit 0
             fi
