@@ -62,7 +62,12 @@ jobs:
                   print("DEBUG title:", driver.title)
                   print("DEBUG url:", driver.current_url)
                   print("DEBUG body:", driver.execute_script("return document.body ? document.body.innerText : ''"))
-                  print("DEBUG html:", driver.page_source[:12000])
+                  src = driver.page_source
+                  lines = src.splitlines()
+                  print("DEBUG html:", src[:12000])
+                  if len(lines) >= 18:
+                      print("DEBUG line18 length:", len(lines[17]))
+                      print("DEBUG line18 around col3593:", lines[17][3200:4100])
                   print("DEBUG console:", driver.get_log("browser"))
                   raise
               driver.execute_script("document.getElementById('secretToggle').click()")
