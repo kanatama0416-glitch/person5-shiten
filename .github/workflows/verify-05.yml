@@ -49,13 +49,22 @@ jobs:
           options.add_argument("--disable-dev-shm-usage")
           options.add_argument("--window-size=390,844")
 
+          options.set_capability("goog:loggingPrefs", {"browser": "ALL"})
           driver = webdriver.Chrome(options=options)
           wait = WebDriverWait(driver, 20)
           try:
               driver.get(url)
-              wait.until(lambda d: d.execute_script(
-                  "return !document.body.classList.contains('intro-lock') && !!document.getElementById('secretToggle')"
-              ))
+              try:
+                  wait.until(lambda d: d.execute_script(
+                      "return !document.body.classList.contains('intro-lock') && !!document.getElementById('secretToggle')"
+                  ))
+              except Exception:
+                  print("DEBUG title:", driver.title)
+                  print("DEBUG url:", driver.current_url)
+                  print("DEBUG body:", driver.execute_script("return document.body ? document.body.innerText : ''"))
+                  print("DEBUG html:", driver.page_source[:12000])
+                  print("DEBUG console:", driver.get_log("browser"))
+                  raise
               driver.execute_script("document.getElementById('secretToggle').click()")
               wait.until(lambda d: d.execute_script(
                   "return !!document.querySelector('.final-finale.on')"
